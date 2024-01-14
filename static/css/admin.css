@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+body{
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background: #e7e9f5;
+}
+.sidebare{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    background: #010507;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, hsla(272, 52%, 14%, 0.649), hsla(230, 51%, 16%, 0.627), hsla(212, 68%, 11%, 0.654)),url(../IMG/pasaporte.jpg);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, hsla(284, 56%, 16%, 0.681), hsla(228, 55%, 20%, 0.631), hsla(226, 67%, 13%, 0.645)),url(../IMG/pasaporte.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background-size: cover;
+    padding: 6px 18px;
+    height: 100%;
+    box-shadow: 5px 0 30px rgba(0,0,0,.1);
+    transition: all .6s ease;
+    overflow: hidden;
+    z-index: 2; /*MODIFICACIONES*/
+}
+.sidebare.active{
+    width: 280px;
+
+}
+.sidebare .logo_content .logo{
+    display: flex;
+    color: #ffffff;
+    height: 50px;
+    width: 200px;
+    font-size: 26px;
+    margin-left: 3px;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: .3s;
+}
+.sidebare.active .logo_content .logo{
+    opacity: 1;
+}
+.sidebare .logo_content .logo .logo_name{
+    font-size: 23px;
+    font-weight: 600;
+    margin: 0 10px;
+}
+.sidebare #btne{
+    position: absolute;
+    color: white;
+    left: 45%;
+    top: 6px;
+    font-size: 35px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    transform: translate(-50%)
+}
+.sidebare.active #btne{
+    left: 80%; 
+}
+.sidebare .src{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+}
+.sidebare .src input{
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 50px);
+    left: 0;
+    top: 0;
+    border-radius: 20px;
+    outline: none;
+    border:none;
+    background: #0b2997;
+    padding-left: 50px;
+    font-size: 15px;
+    color: #c73030;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    transition: all .5s ease;
+
+}
+.sidebare .src .bx-search{
+    position: absolute;
+    z-index: 99;
+    font-size: 22px;
+    color: #ffffff;
+    transition: all .5s ease;
+}
+.sidebare .src .bx-search:hover{
+    color: #0b2997;
+}
+.sidebare .src .bx-search:hover ~ input{
+    background: #ffffff;
+}
+.sidebare .is{
+    height: 50px;
+    min-width: 50px;
+    border-radius: 15px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 25px;
+}
+.sidebare .nave{
+    margin-top: 20px;
+}
+.sidebare .nave .lis{
+    position: relative;
+    height: 60px;
+    width: 100%;
+    margin: 0;
+    margin-left: -45px;
+    list-style: none;
+    line-height: 50px;
+}
+.sidebare .nave .lis .as{
+    color: #f7f6f6d5;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    border-radius: 15px;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all .4s ease;
+}
+.sidebare .nave .lis .nombre{
+    color: #ffff00;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all .4s ease;
+}
+.sidebare .nave .lis .as:hover{
+    color: #b4afaf;
+    background: rgba(0, 0, 0, 0.938);
+    width: 270px;
+}
+.sidebare .link_names{
+    opacity: 0;
+    pointer-events: none;
+    transition: all .5s ease;
+}
+/*MODIFICADO */
+.sidebare .nombre{
+    opacity: 0;
+    pointer-events: none;
+    transition: all .5s ease;
+}
+.sidebare.active .nombre{
+    opacity: 1;
+    pointer-events: auto;
+}
+/*MODIFICADO */
+.sidebare.active .link_names{
+    opacity: 1;
+    pointer-events: auto;
+}
+.sidebare .nave .lis .tooltip{
+    position: absolute;
+    left: 130px;
+    top: 0;
+    transform: translate(-45% , -50%);
+    border-radius: 10px;
+    height: 35px;
+    width: 130px;
+    background: #ffffff;
+    line-height: 35px;
+    text-align: center;
+    font-size: 13px;
+    display: block;
+    color: #242424;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    pointer-events: none;
+    opacity: 0;
+    transition: all .5s ease;
+}
+.sidebare.active .nave .lis .tooltip{
+    display: none;
+}
+.sidebare .nave .lis:hover .tooltip{
+    opacity: 1;
+    top: 50%;
+}
+.home_content {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 40px); /* Resta el ancho del menú deslizante */
+    left: 40px; /* Establece el espacio inicial para acomodar el menú deslizante */
+    transition: all .5s ease;
+    z-index: 1; /*MODIFICACIONES*/
+}
+
+.sidebare.active + .home_content {
+    width: calc(100% - 230px); /* Ajusta el ancho cuando el menú está abierto */
+    left: 230px; /* Ajusta el espacio cuando el menú está abierto */
+}
+
+.home_content .text{
+    font-size: 25px;
+    font-weight: 500;
+    color: #fffb00;
+    padding: 12px 24px; 
+    margin-left: 30px;
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #00000081, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #00000098, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    text-align: center;
+    font-family: 'Lobster', sans-serif;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.37); /* línea para la sombra */
+}
+@media (max-width: 768px) {
+    .sidebare{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 52px;
+        background: #0b2a44;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, hsla(273, 46%, 14%, 0.514), hsla(230, 45%, 18%, 0.603), hsl(211, 62%, 12%)),url(../IMG/graduado.jpg);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, hsla(282, 46%, 14%, 0.562), hsl(229, 51%, 13%), hsla(226, 79%, 11%, 0.541)),url(../IMG/graduado.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+        background-size: cover;
+        padding: 6px 18px;
+        height: 100%;
+        box-shadow: 5px 0 30px rgba(0,0,0,.1);
+        transition: all .6s ease;
+        overflow: hidden;
+        z-index: 2; /*MODIFICACIONES*/
+    }
+    .home_content {
+        position: absolute;
+        height: 100%;
+        width: calc(100% - 40px); /* Resta el ancho del menú deslizante */
+        left: 40px; /* Establece el espacio inicial para acomodar el menú deslizante */
+        transition: all .5s ease;
+        z-index: 1; /*MODIFICACIONES*/
+    }
+    .sidebare.active + .home_content {
+        width: calc(100% - 230px); /* Ajusta el ancho cuando el menú está abierto */
+        left: 0px; /* Ajusta el espacio cuando el menú está abierto */
+    }
+    .home_content .text{
+        font-size: 25px;
+        font-weight: 500;
+        color: #fffb00;
+        padding: 12px 24px; 
+        margin-left: 0px;
+        background: #000000;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #00000081, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #00000098, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+        text-align: center;
+        font-family: 'Lobster', sans-serif;
+        box-shadow: 0 18px 30px rgba(0, 0, 0, 0.37); /* línea para la sombra */
+    }
+    .sidebare #btne{
+        position: absolute;
+        color: white;
+        left: 58%;
+        top: 6px;
+        font-size: 35px;
+        height: 50px;
+        width: 50px;
+        text-align: center;
+        line-height: 50px;
+        transform: translate(-50%)
+    }
+}

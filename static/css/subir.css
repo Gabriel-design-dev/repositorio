@@ -1,0 +1,242 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+::selection{
+  color: #fff;
+  background: #6990F2;
+}
+.wrapper {
+    
+    width: 500px;
+    background: #fff; /* Cambiado a blanco */
+    border-radius: 20px;
+    padding: 20px;
+    
+  }
+.wrapper .content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+.wrapper header{
+  color: #6990F2;
+  font-size: 27px;
+  font-weight: 600;
+  text-align: center;
+}
+.wrapper .forma{
+  height: 167px;
+  display: flex;
+  cursor: pointer;
+  margin: 30px 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 2px dashed #6990F2;
+}
+.forma :where(i, p){
+  color: #6990F2;
+}
+.forma i{
+  font-size: 50px;
+}
+.forma p{
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.sectiones .row{
+  margin-bottom: 10px;
+  background: #E9F0FF;
+  list-style: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sectiones .row i{
+  color: #6990F2;
+  font-size: 30px;
+}
+.sectiones .details span{
+  font-size: 14px;
+}
+.progress-area .row .content{
+  width: 100%;
+  margin-left: 15px;
+}
+.progress-area .details{
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  justify-content: space-between;
+}
+.progress-area .content .progress-bar{
+  height: 6px;
+  width: 100%;
+  margin-bottom: 4px;
+  background: #fff;
+  border-radius: 30px;
+}
+.content .progress-bar .progress{
+  height: 100%;
+  width: 0%;
+  background: #6990F2;
+  border-radius: inherit;
+}
+.uploaded-area{
+  max-height: 232px;
+  overflow-y: scroll;
+}
+.uploaded-area.onprogress{
+  max-height: 150px;
+}
+.uploaded-area::-webkit-scrollbar{
+  width: 0px;
+}
+.uploaded-area .row .content{
+  display: flex;
+  align-items: center;
+}
+.uploaded-area .row .details{
+  display: flex;
+  margin-left: 15px;
+  flex-direction: column;
+}
+.uploaded-area .row .details .size{
+  color: #404040;
+  font-size: 11px;
+}
+.uploaded-area i.fa-check{
+  font-size: 16px;
+}
+#file-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+#file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.titulo-principal{
+  font-family: 'Black Ops One', system-ui;
+  font-weight: 500;
+  
+}
+/*ESTILOS PARA BOTON GENERAR DESCARGAR*/
+.button {
+  position: relative;
+  overflow: hidden;
+  height: 3rem;
+  padding: 0 2rem;
+  border-radius: 1.5rem;
+  background: #000000;
+  background-size: 400%;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button-content {
+  position: relative;
+  z-index: 1;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgb(17, 82, 16) 10.8%,
+    rgb(0, 192, 16) 94.3%
+  );
+  transition: all 0.475s;
+}
+/*ESTILOS PARA BOTON GENERAR OTRO TRAMITE*/
+.buttone {
+  height: 40px;
+  width: 130px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.buttone:hover {
+  box-shadow: .5px .5px 150px #252525;
+}
+
+.type1::after {
+  content: "Actualizar";
+  height: 40px;
+  width: 130px;
+  background-color: #000000;
+  color: #fff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(50px);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.type1::before {
+  content: "Otro Tramite";
+  height: 40px;
+  width: 130px;
+  background-color: #00800d;
+  color: #ffffff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.type1:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.type1:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
