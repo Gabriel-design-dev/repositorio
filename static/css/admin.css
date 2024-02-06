@@ -1,25 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-*{
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-body{
-    position: relative;
-    min-height: 100vh;
-    width: 100%;
-    background: #e7e9f5;
-}
+
+
 .sidebare{
     position: fixed;
     top: 0;
     left: 0;
     width: 70px;
-    background: #010507;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, hsla(272, 52%, 14%, 0.649), hsla(230, 51%, 16%, 0.627), hsla(212, 68%, 11%, 0.654)),url(../IMG/pasaporte.jpg);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, hsla(284, 56%, 16%, 0.681), hsla(228, 55%, 20%, 0.631), hsla(226, 67%, 13%, 0.645)),url(../IMG/pasaporte.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #0b2a44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, hsla(273, 46%, 14%, 0.514), hsla(230, 45%, 18%, 0.603), hsl(211, 62%, 12%)),url(../img/graduado.jpg);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, hsla(282, 46%, 14%, 0.562), hsl(229, 51%, 13%), hsla(226, 79%, 11%, 0.541)),url(../img/graduado.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     background-size: cover;
     padding: 6px 18px;
@@ -229,9 +220,10 @@ body{
         top: 0;
         left: 0;
         width: 52px;
-        background: #0b2a44;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, hsla(273, 46%, 14%, 0.514), hsla(230, 45%, 18%, 0.603), hsl(211, 62%, 12%)),url(../IMG/graduado.jpg);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, hsla(282, 46%, 14%, 0.562), hsl(229, 51%, 13%), hsla(226, 79%, 11%, 0.541)),url(../IMG/graduado.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #010507;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, hsla(272, 52%, 14%, 0.649), hsla(230, 51%, 16%, 0.627), hsla(212, 68%, 11%, 0.654)),url(../IMG/pasaporte.jpg);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, hsla(284, 56%, 16%, 0.681), hsla(228, 55%, 20%, 0.631), hsla(226, 67%, 13%, 0.645)),url(../IMG/pasaporte.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     
         background-size: cover;
         padding: 6px 18px;

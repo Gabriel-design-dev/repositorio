@@ -1,14 +1,45 @@
-from flask import Flask, render_template, request, send_file, redirect, flash
+from flask import Flask, render_template, request, send_file, redirect, flash, session,url_for
 import pandas as pd
 from openpyxl import Workbook
 from io import BytesIO
 from datetime import datetime
-import pandas as pd
-from openpyxl import Workbook
 from openpyxl.styles import Border, Side, PatternFill, Alignment, Font
-from datetime import datetime
+import pytz
+from flask_mysqldb import MySQL,MySQLdb # pip install Flask-MySQLdb
+import os
+from werkzeug.utils import secure_filename
+import jinja2
+import hashlib # ENMASCARA URLS
+
 
 app = Flask(__name__, template_folder='template')
+app.secret_key = "pinchellave"
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_PORT'] = 3306  # Puerto específico
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'proyecto'
+
+app.config['UPLOAD_FOLDER'] = os.path.abspath(os.path.join(os.path.dirname(__file__), 'archivos'))
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+mysql = MySQL(app)
+
+
+print("Intentando conectar a la base de datos...")
+@app.route('/verificar-conexion')
+def verificar_conexion():
+    try:
+        # Intenta ejecutar una consulta simple
+        with mysql.connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            result = cursor.fetchone()
+
+        if result:
+            return "Conexión exitosa a la base de datos."
+        print("Conexión exitosa a la base de datos.")
+
+    except Exception as e:
+        return f"Error al intentar conectarse a la base de datos: {str(e)}"
 
 def procesar_archivo(archivo,titulo):
     datos = pd.read_excel(archivo)
@@ -79,7 +110,8 @@ def procesar_archivo(archivo,titulo):
     sheet = workbook.active
 
     # Agregar un título encima de la tabla con la fecha actual
-    fecha_actual = datetime.now().strftime("%d-%m-%Y, Horas: %H:%M:%S")
+    tz = pytz.timezone('America/La_Paz')
+    fecha_actual = datetime.now(tz).strftime("%d-%m-%Y, Horas: %H:%M:%S")
     titulo_completo = f"TOP 10 DE LOS TRAMITES MAS SOLICITADOS EN EL {titulo}\n(FECHA: {fecha_actual})"
     sheet.merge_cells(start_row=1, start_column=1, end_row=1, end_column=len(resultado_final.columns))
     sheet['A1'] = titulo_completo
@@ -177,8 +209,261 @@ def procesar():
 
 @app.route('/top_10')
 def top_10():
-    return render_template('top_10.html')
+    if 'logueado' in session:
+        return render_template('top_10.html')
+    else:
+        return redirect(url_for('home'))
 
+@app.route('/gestiones')
+def gestiones():
+    if 'logueado' in session:
+        return render_template('gestiones.html')
+    else:
+        return redirect(url_for('home'))
+
+#REGISTRAR TRAMITES CONSULARES
+def guardar_en_base_de_datos(pais, oficina, detalle, top, gestiones, general,gestion):
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO tramites_consulares (pais, oficina_consular, detalle, top_10, gestiones, general,tram_gestion) VALUES (%s, %s, %s, %s, %s, %s,%s)",
+                (pais, oficina, detalle, top, gestiones, general,gestion))
+    mysql.connection.commit()
+    cur.close()
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'xlsx'}
+
+@app.route('/registro-crear', methods = ["GET", "POST"])
+def registro():
+    try:
+        pais = request.form['txtPais']
+        oficina = request.form['txtOficina']
+        detalle = save_file(request.files.get('txtDetalle'))
+        top = save_file(request.files.get('txtTop_10'))
+        gestiones = save_file(request.files.get('txtGestion'))
+        general = save_file(request.files.get('txtGeneral'))
+        gestion = int(request.form['txtGestiones'])
+
+        # Realizar una consulta para verificar si ya existe un registro con los mismos valores
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM tramites_consulares WHERE pais = %s AND oficina_consular = %s AND tram_gestion = %s", (pais, oficina, gestion))
+        existing_record = cur.fetchone()
+
+        # Si no hay un registro existente, realizar la inserción
+        if not existing_record:
+            guardar_en_base_de_datos(pais, oficina, detalle, top, gestiones, general,gestion)
+            return render_template('registro_tramites.html', mensaje2="Registro Exitoso")
+        else:
+            return render_template('registro_tramites.html', mensaje_duplicado="Ya Existe un Registro con los Mismos Datos")
+
+    except Exception as e:
+        print("Error:", str(e))
+        return render_template('registro_tramites.html', mensaje_error="Error al registrar: {}".format(str(e)))
+
+
+def save_file(file):
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        return filepath
+    else:
+        return None
+    
+#----VALIDACION LOGIN
+@app.route('/acceso-login', methods= ["GET", "POST"])
+def login():
+    if request.method == 'POST' and 'txtUsuario' in request.form and 'txtPassword' in request.form:
+       
+        _usuario = request.form['txtUsuario']
+        _password = request.form['txtPassword']
+
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM usuarios WHERE Usuario = %s AND Password = %s', (_usuario, _password,))
+        account = cur.fetchone()
+      
+        if account:
+            session['logueado'] = True
+            session['ID'] = account['ID']
+            session['Nombre'] = account['Nombre']
+            session['Usuario'] = account['Usuario']
+            session['Password'] = account['Password']
+            session['id_rol'] = account['id_rol']
+            mensaje5="bienvenido!"
+
+            if session['id_rol'] == 1:
+                    return render_template("vista_consular.html",mensajeinicio=mensaje5)
+            elif session['id_rol'] == 2:
+                    return render_template("vista_consular_usuario.html",mensajeinicio=mensaje5)
+            print(account[0])
+        else:
+         
+            return render_template('index.html',mensaje="Usuario O Contraseña Incorrectas")
+  
+    return render_template('index.html')
+
+#----------------------------------------------------------------- 
+@app.route('/registro_tramites')
+def registro_tramites():
+    if 'logueado' in session:
+        return render_template('registro_tramites.html')
+    else:
+        return redirect(url_for('home'))
+
+#VISTA---CONSULAR-----------BUSQUEDA DE TRAMITES
+@app.route('/vista_consular', methods=['POST'])
+def vistas_consular():
+        # Conectar a la base de datos
+        cur = mysql.connection.cursor()
+
+        # Obtener los valores del formulario
+        pais = request.form['txtPais']
+        oficina = request.form['txtOficina']
+        gestion = int(request.form['txtGestiones'])
+
+          # Construir la consulta SQL con JOIN entre tramites_consulares y gestiones
+        sql = "SELECT t.*, g.gestion FROM tramites_consulares t JOIN gestiones g ON t.tram_gestion = g.id_gestion WHERE t.pais = %s AND t.oficina_consular = %s AND t.tram_gestion = %s"
+        params = (pais, oficina, gestion)
+
+        cur.execute(sql, params)
+        result = cur.fetchall()
+    # Mostrar los resultados
+        cur.close()
+ 
+        return render_template("vista_consular.html",  result=result)
+
+
+@app.route('/descargar_archivo/<archivo>')
+def descargar_archivo(archivo):
+    directorio_archivos = app.config['UPLOAD_FOLDER']
+    ruta_completa = os.path.join(directorio_archivos, archivo)
+
+    if not os.path.isfile(ruta_completa):
+        return "Archivo no encontrado", 404
+
+    return send_file(ruta_completa, as_attachment=True)
+
+
+@app.route('/vista_consular')
+def vista_consular():
+    if 'logueado' in session:
+        return render_template('vista_consular.html')
+    else:
+        return redirect(url_for('home'))
+
+ # vista CONSULAR USUARIO 2
+@app.route('/top_10_usuario')
+def top_10_usuario():
+    if 'logueado' in session:
+        return render_template('top_10_usuario.html')
+    else:
+        return redirect(url_for('home'))
+
+@app.route('/vista_consular_usuario', methods=['POST'])
+def vistas_consular_user():
+        # Conectar a la base de datos
+        cur = mysql.connection.cursor()
+
+        # Obtener los valores del formulario
+        pais = request.form['txtPais']
+        oficina = request.form['txtOficina']
+        gestion = int(request.form['txtGestiones'])
+
+          # Construir la consulta SQL con JOIN entre tramites_consulares y gestiones
+        sql = "SELECT t.*, g.gestion FROM tramites_consulares t JOIN gestiones g ON t.tram_gestion = g.id_gestion WHERE t.pais = %s AND t.oficina_consular = %s AND t.tram_gestion = %s"
+        params = (pais, oficina, gestion)
+
+        cur.execute(sql, params)
+        result = cur.fetchall()
+    # Mostrar los resultados
+        cur.close()
+ 
+        return render_template("vista_consular_usuario.html",  result=result)
+    
+@app.route('/vista_consular_usuario')
+def vista_consular_usuario():
+    if 'logueado' in session:
+        # Genera un token cifrado con información del usuario
+        # Genera una ruta enmascarada con la información del usuario
+        ruta_enmascarada = enmascarar_ruta(f"user_{session['ID']}")
+        return render_template('vista_consular_usuario.html',ruta_enmascarada=ruta_enmascarada)
+    else:
+        return redirect(url_for('home'))
+#----------------------------------------------------
+
+@app.route('/editar_campo/<int:id>/<campo>', methods=['GET'])
+def editar_campo(id, campo):
+    # Aquí debes cargar los datos del campo específico y renderizar el formulario de edición
+    return render_template('formulario_edicion.html', id=id, campo=campo)
+
+# La ruta para procesar el formulario de edición
+# La ruta para procesar el formulario de edición
+@app.route('/guardar_edicion/<int:id>', methods=['POST'])
+def guardar_edicion(id):
+    campo = request.form['campo']
+    nuevo_valor = save_file(request.files.get('nuevo_valor'))
+    
+
+    # Llama a la función de guardado con el parámetro de id para la edición
+    guardar_en_base_de_datoss(id, campo, nuevo_valor)
+    # Redirige a la página de muestra después de editar
+    return render_template('vista_consular.html',updates="Registro Actualizado")
+
+
+# La función para guardar en la base de datos
+def guardar_en_base_de_datoss(id, campo, nuevo_valor):
+    # Conectar a la base de datos
+    cur = mysql.connection.cursor()
+
+    # Construir la consulta SQL para actualizar el campo específico
+    sql = ""
+    if campo == 'detalle':
+        sql = "UPDATE tramites_consulares SET detalle = %s WHERE id = %s"
+    elif campo == 'top_10':
+        sql = "UPDATE tramites_consulares SET top_10 = %s WHERE id = %s"
+    elif campo == 'general':
+        sql = "UPDATE tramites_consulares SET general = %s WHERE id = %s"
+    elif campo == 'gestion':
+        sql = "UPDATE tramites_consulares SET gestion = %s WHERE id = %s"
+
+    try:
+        # Imprime la consulta SQL para depuración
+        print("SQL:", cur.mogrify(sql, (nuevo_valor, id)))
+
+        # Ejecutar la consulta
+        if nuevo_valor is not None and id is not None:
+            cur.execute(sql, (nuevo_valor, id))
+        else:
+            print("Alguno de los valores es nulo")
+
+        # Confirmar la transacción
+        mysql.connection.commit()
+
+    except Exception as e:
+        # Manejar el error e imprimirlo
+        print("Error al ejecutar la consulta:", str(e))
+
+    finally:
+        # Cerrar el cursor
+        cur.close()
+
+# Ruta protegida que requiere autenticación
+@app.route('/pagina_protegida')
+def pagina_protegida():
+    if 'logueado' in session:
+        return f'Hola, {session["Nombre"]}!'
+    else:
+        return redirect(url_for('login'))
+#destruir sesion
+@app.route('/cerrar-sesion')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+
+# Función para generar una ruta enmascarada usando MD5
+def enmascarar_ruta(original):
+    return hashlib.md5(original.encode()).hexdigest()
+
+
+#------------------------------------------------------------------------------
 if __name__ == '__main__':
     app.secret_key = "pinchellave"
     app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)

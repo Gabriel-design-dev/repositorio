@@ -41,15 +41,15 @@
                 </a>
                 <span class="tooltip"></span>
             </li>
-            <li class="lis">
+            <!--<li class="lis">
                 <a class="as" href="/registro_tramites">
                     <i class='bx bx-folder-open is' ></i>
                     <span class="link_names">Registro de tramites</span>
                 </a>
                 <span class="tooltip">Inscripciones</span>
-            </li>
+            </li>-->
             <li class="lis">
-                <a class="as" href="/vista_consular">
+                <a class="as" href="/vista_consular_usuario">
                     <i class='bx bx-calendar-event is' ></i>
                     <span class="link_names">Busqueda de Tramites</span>
                 </a>
@@ -57,21 +57,21 @@
             </li>
             
             <li class="lis">
-                <a class="as" href="/top_10">
+                <a class="as" href="/top_10_usuario">
                     <i class='bx bx-user-check is' ></i>
                     <span class="link_names">Generador de Tramites TOP 10</span>
                 </a>
                 <span class="tooltip">Seguimiento Academico</span>
             </li>
-            <li class="lis">
+            <!--<li class="lis">
                 <a class="as" href="#">
                     <i class='bx bxs-first-aid is' ></i>
                     <span class="link_names">Tramites Realizados</span>
                 </a>
                 <span class="tooltip">Historial</span>
-            </li>
+            </li>--->
             <li class="lis">
-                <a class="as" href="/cerrar-sesion">
+                <a class="as" href="/">
                     <i class='bx bxs-first-aid is' ></i>
                     <span class="link_names">Salir</span>
                 </a>
@@ -188,8 +188,7 @@
 <!---FINAL DE CONTENIDO------>
 </div>
 <br><br>
-  </div> 
-      
+        </div> 
 <script>
     let btn = document.querySelector('#btne');
     let sidebar = document.querySelector('.sidebare');
@@ -542,7 +541,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js
 <script src="{{ url_for('static', filename='js/subir.js') }}"></script>
 <!-------------------------------------------->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 {% include 'footer.html' %}
 </body>
 </html>

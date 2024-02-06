@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Serif+Display&family=Protest+Riot&family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&family=Teko:wght@300..700&display=swap');
+
+body{
+background-image: url(../img/font.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+}
+.caja-login{
+
+}
+.formulario {
+    padding: 30px;
+    margin-left: 36%;
+    margin-top: 2%;
+    width: 450px;
+    height: 28%;
+    border: 3px solid #ffffff;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo transparente con opacidad */
+    border-radius: 20px;
+    backdrop-filter: blur(8px); /* Aplicar desenfoque al fondo */
+}
+
+.entradas{
+    background: transparent;
+   border: none;  /* Elimina todos los bordes */
+    border-bottom: 1px solid white; /* Agrega solo el borde inferior */
+    height: 55px;
+    position: absolute;
+    width: 390px;
+    color: white !important;
+    font-size: 19px;
+    text-indent: 30px;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 10px;
+
+}
+.entradas:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.829) inset; /* Establece el color del fondo */
+  -webkit-text-fill-color: white !important; /* Establece el color del texto */
+  border-radius: 10px;
+
+}
+.entradas:focus {
+    background: transparent;
+}
+
+.usuario-password{
+    display: flex;
+    align-items: center;
+    
+}
+.icon{
+    position: relative;
+    font-size: 27px;
+    margin-left: 4px;
+    margin-right: 83%;
+    color: #ffffff;
+    margin-top: 10px;
+}
+.login__eye{
+    position: relative;
+    right: 10px; /* Ajusta la distancia desde el borde derecho */
+    cursor: pointer;
+    font-size: 24px;
+}
+.entradas::placeholder {
+    color: #ffffff; /* Color que desees para el placeholder */
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+.tit{
+    font-family: "Black Ops One", system-ui;
+    font-weight: 200;
+    color: rgba(255, 230, 0, 0.877);
+}
+/*-----------------------PARA BOTON--------------------------*/
+.shadow__btn {
+    padding: 10px 20px;
+    border: none;
+    font-size: 17px;
+    color: #fff;
+    border-radius: 7px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.5s;
+    transition-property: box-shadow;
+  }
+  
+  .shadow__btn {
+    background: rgb(0,140,255);
+    box-shadow: 0 0 25px rgb(0,140,255);
+  }
+  
+  .shadow__btn:hover {
+    box-shadow: 0 0 5px rgb(0,140,255),
+                0 0 25px rgb(0,140,255),
+                0 0 50px rgb(0,140,255),
+                0 0 100px rgb(0,140,255);
+  }
+
+  @media (max-width: 768px){
+    body{
+        background-repeat: repeat;
+    }
+    .formulario {
+        padding: 30px;
+        margin-left: 10px;
+        margin-top: 2%;
+        width: 300px;
+        height: 30%;
+        border: 3px solid #ffffff;
+        background-color: rgba(0, 0, 0, 0.6); /* Fondo transparente con opacidad */
+        border-radius: 20px;
+        backdrop-filter: blur(8px); /* Aplicar desenfoque al fondo */
+    }
+    .entradas{
+        background: transparent;
+        border: none;  /* Elimina todos los bordes */
+         border-bottom: 1px solid white; /* Agrega solo el borde inferior */
+         height: 40px;
+         position: absolute;
+         width: 270px;
+         color: white !important;
+         font-size: 20px;
+         text-indent: 30px;
+         font-family: 'Open Sans', sans-serif;
+         margin-left: -19px;
+         margin-top: 17px;
+    }
+    .entradas::placeholder {
+        color: #ffffff; /* Color que desees para el placeholder */
+        font-family: "Poppins", sans-serif;
+        font-size: 17px;
+    }
+    .icon{
+        position: relative;
+        font-size: 20px;
+        margin-left: -10px;
+        margin-right: 100%;
+        color: #ffffff;
+        margin-top: 17px;
+    }
+    .tit{
+        font-size: 13px;
+    }
+    .shadow__btn {
+        padding: 7px 13px;
+        border: none;
+        font-size: 13px;
+      }
+      .sistema{
+       margin-top: 8px;
+      }
+    }

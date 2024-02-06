@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOP 10</title>
+    <title>Vista Consular</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/b/b6/Escudo_de_Bolivia.svg" type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 </head>
+
 <body>
     <div class="sidebare">
         <div class="logo_content">
@@ -82,20 +83,28 @@
    
     <div class="home_content">
         <div class="text">Sistema de Tramites Consulares</div><br>
-
-        <!----------campo de datos----------->
-        <h1 class="text-center titulo-principal">GENERADOR DE TOP 10</h1>
-<div class="container table-responsive">
-    <div class="alert alert-success text-justify mx-auto mt-3 mb-0 small">
-        <h7>Selecciona el <b>PAIS y OFICINA CONSULAR</b> para agregar el <b>Titulo al TOP 10</b></h7>
-    </div>
-        <img src="{{ url_for('static', filename='img/ministerio.png') }}" width="310px" height="80px">
+    
+        <h1 class="text-center titulo-principal">BUSQUEDA DE TRAMITES REALIZADOS</h1>
         
-<form class="row g-4 mt-1 mb-3" action="/procesar" method="post" enctype="multipart/form-data">
-  <div class="col-md-3">
-    <label for="inputState" class="form-label"><b>PAIS</b></label>
-    <select id="inputState" class="form-select" name="txtPais" onchange="actualizarDepartamentos()" required>
-      <option selected>TODOS</option>
+        <div class="container table-responsive">
+            <!--<div class="alert alert-success text-justify mx-auto mt-3 mb-0 small">
+                <h7>Selecciona el <b>PAIS y OFICINA CONSULAR</b> para hacer la <b>BUSQUEDA</b></h7>
+            </div>--->
+            <div class="img-titulo row g-4">
+                <img src="{{ url_for('static', filename='img/ministerio.png') }}" width="390px" height="90px">
+            </div>
+            <style>
+                .img-titulo{
+                    margin-left: 340px;
+                }
+            </style>
+
+            <!-----FORMULARIO-------->            
+            <form class="row g-4 mt-1 mb-3" action="/vista_consular" method="post" enctype="multipart/form-data">
+                <div class="col-md-3">
+                    <label for="inputState" class="form-label"><b>PAIS</b></label>
+                    <select id="inputState" class="form-select" name="txtPais" onchange="actualizarDepartamentos()" required>
+                        <option selected>TODOS</option>
       <option value="ALEMANIA">ALEMANIA</option>
       <option value="ARGENTINA">ARGENTINA</option>
       <option value="AUSTRALIA">AUSTRALIA</option>
@@ -133,63 +142,175 @@
       <option value="TURKIYE">TURKIYE</option>
       <option value="URUGUAY">URUGUAY</option>
       <option value="VENEZUELA">VENEZUELA</option>
-   
-      <!-- Agrega más opciones según tus semestres -->
-    </select><br>
-    <div class="alert alert-warning" role="alert">
-        <p class="text-center">Copia tu tabla a esta <b>Plantilla</b> Para no Tener Errores.</p>
-        <a class="btn btn-success btn-sm" href="https://www.mediafire.com/file/j9i35xy0fo6tvrd/Plantilla_Top_10+.xlsx/file"style="font-size: smaller;">
-            <i class="fas fa-download"></i> Descargar Plantilla    
-        </a>
-      </div>
-  </div>
-  
-  <div class="col-md-9">
-    <label for="inputState" class="form-label"><b>Oficina Consular</b></label>
-    <select id="departamentos" class="form-select" name="titulo"required> 
-    <option selected>TODOS</option>
-    </select> <br>
-    <!--------------------------ARCHIVO A SUBIR--> 
-    <div class="text-center wrapper" id="file-container">
-        <div class="forma">
-            <input class="file-input" type="file" name="archivo" accept=".xlsx" id="file-input" required>
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p id="selected-file">Selecciona o arrastra un archivo</p>
-        </div>
-    </div>
-</div>
-<!-------------FILE--------->
-
-<div class="col-12 text-center mt-1">
-    <button type="submit" class="button">
-        <span class="button-content">Generar</span>
-      </button> 
-  </div>
- 
-    <div class="isquiera">
-  <a type="submit" class="buttone type1 isquiera"href="javascript:void(0);" onclick="location.reload();">
-</a>
-</div>
-<style>
-    .isquiera{
-        left: 80%;
-    }
-</style>
-</div>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!------------------FILE FIN-->
+                    </select>
+                </div>
+                <div class="col-md-7">
+                    <label for="inputState" class="form-label">Oficina Consular</label>
+                    <select id="departamentos" class="form-select" name="txtOficina" required>
+                        <option selected>TODOS</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputState" class="form-label"><b>Gestion</b></label>
+                    <select id="departamentos" class="form-select" name="txtGestiones"required> 
+                    <option selected value="8">2024</option>
+                    <option value="7">2023</option>
+                    <option value="6">2022</option>
+                    <option value="5">2021</option>
+                    <option value="4">2020</option>
+                    <option value="3">2019</option>
+                    <option value="2">2018</option>
+                    <option value="1">2017</option>
+                    </select> <br>
+                    <!--------------------------ARCHIVO A SUBIR--> 
+                </div>
+                <label class="form-check-label text-center" for="gridCheck">
+                    Selecciona Por favor el <b>Pais y Oficina Consular</b> para hacer la Busqueda Correspondiente
+                    <div class="text-center"><br>
+                        <button type="submit" class="buttonn">
+                            <div class="boxe"><img src="{{ url_for('static', filename='img/buscar.png') }}" width="28px"></div>
+                            <div class="boxe">B</div>
+                            <div class="boxe">U</div>
+                            <div class="boxe">S</div>
+                            <div class="boxe">C</div>
+                            <div class="boxe">A</div>
+                            <div class="boxe">R</div>
+                        </button>
+                    </div>
+                    <!------BOTON------>
+                
+                    <!------------------->
+            </form><br>
     
-</form><br>
-<!--------------BUSQUEDA REALIZADA----------------->
-<!-------------------------------------->
+            {% if result %}
+            <div class="result-box campo-1">
+                
+               <p>Resultados Encontrados para..
+                {% for ver in result %}
+               </p> <h4> {{ver.pais}} - {{ver.oficina_consular}} - {{ver.gestion}}</h4> <br>
+               
+                <div class="row mt-2">
+                    <!-------------CAMPO 1 DETALLE-------->
+                    <div class="col-md-3">
+                        <b>Reporte Detalle</b>
+                    </div>
+                    <div class="col-md-3">
+                        {% if result %}
+                        {% for ver in result %}
+                        {% if ver.detalle %}
+                        <a class="btn btn-success btn-xs mb-2" href="{{ url_for('descargar_archivo', archivo=ver.detalle) }}" download>Ver Reporte</a>
+                        <br><a class="btn btn-dark btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='detalle') }}"><i class="fas fa-edit"></i> Editar</a>
+                        {% else %}
+                        <div class="alert alert-warning mb-2" style="font-size: smaller;">
+                            Por favor, completa la información faltante para este registro.
+                        </div>
+                        <a class="btn btn-success btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='detalle') }}"><i class="fas fa-edit"></i> Agregar</a>
+                    {% endif %}
+                        {% endfor %}
+                        <!------------EL ARCHIVO NO EXISTE-------->
+                        {% else %}
+                        <div class="alert alert-danger mb-2"style="font-size: smaller;">Registro Vacio por favor Agregue un Nuevo Registro</div>
+                        <a class="btn btn-success btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='detalle') }}"><i class="fas fa-edit"></i> Agregar</a>
+                        {% endif %}
+                    </div>
+                    
+                     <!-------------CAMPO 2 TOP 10-------->
+                     <div class="col-md-3">
+                        <b>Reporte TOP 10</b>
+                    </div>
+                    <div class="col-md-3">
+                        {% if result %}
+                        {% for ver in result %}
+                        {% if ver.top_10 %}
+                        <a class="btn btn-success btn-xs mb-2" href="{{ url_for('descargar_archivo', archivo=ver.top_10) }}" download>Ver Reporte</a>
+                        <br><a class="btn btn-dark btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='top_10') }}"><i class="fas fa-edit"></i> Editar</a>
+                        {% else %}
+                        <div class="alert alert-warning mb-2" style="font-size: smaller;">
+                            Por favor, completa la información faltante para este registro.
+                        </div>  
+                        <a class="btn btn-success btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='top_10') }}"><i class="fas fa-edit"></i> Agregar</a> 
+                    {% endif %}
+                        {% endfor %}
+                        <!------------EL ARCHIVO NO EXISTE-------->
+                        {% else %}
+                        <div class="alert alert-danger mb-2"style="font-size: smaller;">Registro Vacio por favor Agregue un Nuevo Registro</div>
+                        <a class="btn btn-success btn-sm" href=""><i class="fas fa-edit"></i> Agregar</a>
+                        {% endif %}
+                    </div>
+                </div>
 
-<!-------DESCARGA DE ARCHIVOS----------------------------------------->
-<!-- ... (Tu código existente) ... -->
-<!---FINAL DE CONTENIDO------>
-</div>
-<br><br>
-  </div> 
-      
+                <div class="row mt-3">
+                     <!-------------CAMPO 2 GESTIONES-------->
+                     <div class="col-md-3">
+                        <b>Reporte Gestiones 2017 - Actual</b>
+                    </div>
+                    <div class="col-md-3">
+                        {% if result %}
+                        {% for ver in result %}
+                        {% if ver.gestiones %}
+                        <a class="btn btn-success btn-xs mb-2" href="{{ url_for('descargar_archivo', archivo=ver.gestiones) }}" download>Ver Reporte</a>
+                        <br><a class="btn btn-dark btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='gestiones') }}"><i class="fas fa-edit"></i> Editar</a>
+                        {% else %}
+                        <div class="alert alert-warning mb-2" style="font-size: smaller;">
+                            Por favor, completa la información faltante para este registro.
+                        </div>   
+                        <a class="btn btn-success btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='gestiones') }}"><i class="fas fa-edit"></i> Agregar</a>
+                    {% endif %}
+                        {% endfor %}
+                        <!------------EL ARCHIVO NO EXISTE-------->
+                        {% else %}
+                        <div class="alert alert-danger mb-2"style="font-size: smaller;">Registro Vacio por favor Agregue un Nuevo Registro</div>
+                        <a class="btn btn-success btn-sm" href=""><i class="fas fa-edit"></i> Agregar</a>
+                        {% endif %}
+                    </div>
+                     <!-------------CAMPO 4 GENERAL-------->
+                     <div class="col-md-3">
+                        <b>Reporte General</b>
+                    </div>
+                    <div class="col-md-3">
+                        {% if result %}
+                        {% for ver in result %}
+                        {% if ver.general %}
+                        <a class="btn btn-success btn-xs mb-2" href="{{ url_for('descargar_archivo', archivo=ver.general) }}" download>Ver Reporte</a>
+                        <a class="btn btn-danger btn-xs mb-2" href="{{ url_for('descargar_archivo', archivo=ver.general) }}" download>Ver PDF</a>
+                        <br><a class="btn btn-dark btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='general') }}"><i class="fas fa-edit"></i> Editar</a>
+                        {% else %}
+                        <div class="alert alert-warning mb-2" style="font-size: smaller;">
+                            Por favor, completa la información faltante para este registro.
+                        </div>   
+                        <a class="btn btn-success btn-sm" href="{{ url_for('editar_campo', id=ver.id, campo='general') }}"><i class="fas fa-edit"></i> Agregar</a>
+                    {% endif %}
+                        {% endfor %}
+                        <!------------EL ARCHIVO NO EXISTE-------->
+                        {% else %}
+                        <div class="alert alert-danger mb-2"style="font-size: smaller;">Registro Vacio por favor Agregue un Nuevo Registro</div>
+                        <a class="btn btn-success btn-sm" href=""><i class="fas fa-edit"></i> Agregar</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <br>
+                
+                {% else %} <br>  
+            <div class=" alert alert-warning d-inline-block align-middle" role="alert">
+                <p><img width="50" height="50" src="https://img.icons8.com/3d-fluency/94/weary-cat-1.png" alt="weary-cat-1" /> !Oh No! No existe aun ningun Registro...</p>
+            </div>
+            {% endif %}
+            </div>
+              
+            <!--------FINAL MOSTRAR-->
+        </div>
+        <br><br>
+    </div> 
+    {% if updates %}
+    <script>
+      Swal.fire({
+        title: '{{ updates }}',
+        icon: 'success',
+      });
+    </script>
+  {% endif %} 
+
 <script>
     let btn = document.querySelector('#btne');
     let sidebar = document.querySelector('.sidebare');
@@ -534,15 +655,19 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js
     }
 </script>
 <!------------------------MENSAJE DE EXITO DESPUES DE EDITAR-------------------------->
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
-
-<script src="{{ url_for('static', filename='js/subir.js') }}"></script>
+{% if mensaje %}
+<script>
+ Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Bienvenido",
+    showConfirmButton: false,
+    timer: 1500
+  });
+</script>
+{% endif %}
 <!-------------------------------------------->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 {% include 'footer.html' %}
 </body>
 </html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestiones</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/caja_admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/subir.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+</head>
+<body>
+    <div class="sidebare">
+        <div class="logo_content">
+            <div class="logo">
+                <div class="logo_name titulo-principal">D G A C</div>
+            </div>
+            <i class='bx bx-menu is' id='btne'></i>
+        </div>
+        <style>
+            .logo_name.titulo-principal {
+                color: yellow;
+            }
+        </style>
+
+        <ul class="nave">
+            <li class="lis">
+                <a class="as" href="#">
+                    <i class='bx bx-user-circle is' ></i>
+                    <span class="nombre">Direccion de Asuntos Consulares</span>
+                </a>
+                <span class="tooltip"></span>
+            </li>
+            <li class="lis">
+                <a class="as" href="#">
+                    <i class='bx bx-folder-open is' ></i>
+                    <span class="link_names">Registro de tramites</span>
+                </a>
+                <span class="tooltip">Inscripciones</span>
+            </li>
+            <li class="lis">
+                <a class="as" href="#">
+                    <i class='bx bx-calendar-event is' ></i>
+                    <span class="link_names">Busqueda de Tramites</span>
+                </a>
+                <span class="tooltip">Certificaciones</span>
+            </li>
+            
+            <li class="lis">
+                <a class="as" href="/top_10">
+                    <i class='bx bx-user-check is' ></i>
+                    <span class="link_names">Generador de Tramites TOP 10</span>
+                </a>
+                <span class="tooltip">Seguimiento Academico</span>
+            </li>
+            <li class="lis">
+                <a class="as" href="#">
+                    <i class='bx bxs-first-aid is' ></i>
+                    <span class="link_names">Tramites Realizados</span>
+                </a>
+                <span class="tooltip">Historial</span>
+            </li>
+            <li class="lis">
+                <a class="as" href="/cerrar-sesion">
+                    <i class='bx bxs-first-aid is' ></i>
+                    <span class="link_names">Salir</span>
+                </a>
+                <span class="tooltip">Salir</span>
+            </li>
+        </ul>
+    </div>
+   
+    <div class="home_content">
+        <div class="text">Sistema de Tramites Consulares</div><br>
+
+        <!----------campo de datos----------->
+        <h1 class="text-center titulo-principal">GENERADOR DE GESTIONES 2017 - 2024</h1>
+<div class="container table-responsive">
+    <div class="alert alert-success text-justify mx-auto mt-3 mb-0 small">
+        <h7>Selecciona el <b>PAIS y OFICINA CONSULAR</b> para agregar el <b>Titulo</b></h7>
+    </div>
+        <img src="{{ url_for('static', filename='img/ministerio.png') }}" width="310px" height="80px">
+        
+<form class="row g-4 mt-1 mb-3" action="/procesar" method="post" enctype="multipart/form-data">
+  <div class="col-md-3">
+    <label for="inputState" class="form-label"><b>PAIS</b></label>
+    <select id="inputState" class="form-select" name="txtPais" onchange="actualizarDepartamentos()" required>
+      <option selected>Todos</option>
+      <option value="Alemania">ALEMANIA</option>
+      <option value="Argentina">ARGENTINA</option>
+      <option value="AUSTRALIA">AUSTRALIA</option>
+      <option value="AUSTRIA">AUSTRIA</option>
+      <option value="BELGICA">BELGICA</option>
+      <option value="BRASI">BRASIL</option>
+      <option value="CHILE">CANADA</option>
+      <option value="Primero B">CHILE</option>
+      <option value="Primero A">CHINA</option>
+      <option value="Primero B">COLOMBIA</option>
+      <option value="Primero A">COSTA RICA</option>
+      <option value="Primero B">CUBA</option>
+      <option value="Primero A">ECUADOR</option>
+      <option value="Primero B">EGIPTO</option>
+      <option value="Primero A">ESPAÑA</option>
+      <option value="Primero B">ESTADOS UNIDOS</option>
+      <option value="Primero A">FRANCIA</option>
+      <option value="Primero B">INDIA</option>
+      <option value="Primero A">IRAN</option>
+      <option value="Primero B">ITALIA</option>
+      <option value="Primero A">JAPON</option>
+      <option value="Primero B">LIBANO</option>
+      <option value="Primero A">MEXICO</option>
+      <option value="Primero B">NICARAGUA</option>
+      <!-- Agrega más opciones según tus semestres -->
+    </select><br>
+    <div class="alert alert-warning" role="alert">
+        <p class="text-center">Copia tu tabla a esta <b>Plantilla</b> Para no Tener Errores.</p>
+        <a class="btn btn-success btn-sm" href="https://docs.google.com/spreadsheets/d/14XGUvv6bBa6vsQFpU7E5XRScxv3eGMGm/edit?usp=sharing&ouid=104657178657192101743&rtpof=true&sd=true"style="font-size: smaller;">
+            <i class="fas fa-download"></i> Descargar Plantilla    
+        </a>
+      </div>
+  </div>
+  
+  <div class="col-md-9">
+    <label for="inputState" class="form-label"><b>Oficina Consular</b></label>
+    <select id="departamentos" class="form-select" name="titulo"required> 
+    <option selected>Todos</option>
+    </select> <br>
+    <!--------------------------ARCHIVO A SUBIR--> 
+    <div class="text-center wrapper" id="file-container">
+        <div class="forma">
+            <input class="file-input" type="file" name="archivo" accept=".xlsx" id="file-input" required>
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p id="selected-file">Selecciona o arrastra un archivo</p>
+        </div>
+    </div>
+</div>
+<!-------------FILE--------->
+
+<div class="col-12 text-center mt-1">
+    <button type="submit" class="button">
+        <span class="button-content">Generar</span>
+      </button> 
+  </div>
+ 
+    <div class="isquiera">
+  <a type="submit" class="buttone type1 isquiera"href="javascript:void(0);" onclick="location.reload();">
+</a>
+</div>
+<style>
+    .isquiera{
+        left: 80%;
+    }
+</style>
+</div>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!------------------FILE FIN-->
+    
+</form><br>
+<!--------------BUSQUEDA REALIZADA----------------->
+<!-------------------------------------->
+
+<!-------DESCARGA DE ARCHIVOS----------------------------------------->
+<!-- ... (Tu código existente) ... -->
+<!---FINAL DE CONTENIDO------>
+</div>
+<br><br>
+        </div> 
+<script>
+    let btn = document.querySelector('#btne');
+    let sidebar = document.querySelector('.sidebare');
+    let srcBtn = document.querySelector('.bx-search');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
+    }
+
+    // Abre el menú por defecto en escritorio
+    window.addEventListener('load', function() {
+        if (window.innerWidth > 768) {
+            sidebar.classList.add('active');
+        }
+    });
+
+    btn.onclick = toggleSidebar;
+    srcBtn.onclick = toggleSidebar;
+
+    // Cierra el menú en dispositivos móviles por defecto
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+        } else {
+            // Si el tamaño de la pantalla es mayor que 768px, abre el menú
+            sidebar.classList.add('active');
+        }
+    });
+</script>
+
+<!----MENSAJE DE INICIO DE SESSION EXITOSO-->
+<script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js
+"></script>
+
+<!----CONSULADOS ------>
+<script>
+    function actualizarDepartamentos() {
+        var paisSeleccionado = document.getElementById("inputState").value;
+        var departamentosSelect = document.getElementById("departamentos");
+
+        // Limpiar las opciones anteriores
+        departamentosSelect.innerHTML = "";
+
+        switch (paisSeleccionado) {
+            case "Alemania":
+                // Agregar opciones para Alemania
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, FRANKFURT", "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, FRANKFURT");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, HAMBURGO", "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, HAMBURGO");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, MUNICH", "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, MUNICH");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, BERLIN", "CONSULADO HONORARIO DE BOLIVIA EN ALEMANIA, BERLIN");
+                // Agregar más opciones según tus necesidades para Alemania
+                break;
+
+            case "Argentina":
+                // Agregar opciones para Argentina
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, COMODORO RIVADAVIA", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, COMODORO RIVADAVIA");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, CORDOBA", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, CORDOBA");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, JUJUY", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, JUJUY");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, LA QUIACA", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, LA QUIACA");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, MENDOZA", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, MENDOZA");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, ORAN", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, ORAN");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, POCITOS - SALVADOR MAZZA", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, POCITOS - SALVADOR MAZZA");
+                agregarOpcion(departamentosSelect, "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, ROSARIO", "CONSULADO HONORARIO DE BOLIVIA EN ARGENTINA, ROSARIO");
+                // Agregar más opciones según tus necesidades para Argentina
+                break;
+
+            case "Australia":
+                // Agregar opciones para Australia
+                agregarOpcion(departamentosSelect, "Sídney", "Sídney");
+                agregarOpcion(departamentosSelect, "Melbourne", "Melbourne");
+                // Agregar más opciones según tus necesidades para Australia
+                break;
+
+            // Puedes agregar más casos para otros países
+
+            // Puedes agregar un caso predeterminado o un mensaje de error si es necesario
+        }
+    }
+
+    function agregarOpcion(select, valor, texto) {
+        var option = document.createElement("option");
+        option.value = valor;
+        option.text = texto;
+        select.add(option);
+    }
+</script>
+<!------------------------MENSAJE DE EXITO DESPUES DE EDITAR-------------------------->
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+
+<script src="{{ url_for('static', filename='js/subir.js') }}"></script>
+<!-------------------------------------------->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</body>
+</html>

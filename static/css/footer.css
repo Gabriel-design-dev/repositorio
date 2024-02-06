@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+/*------------*/
+    .raw .as .is{
+        font-size:2em;
+        margin:0% 1%;
+        background: none;
+        color: #000;
+        
+    }
+    .cop{
+        font-size: 13px;
+        font-weight: 200;
+        color: #000000;
+        font-family: 'Sriracha', cursive;
+        font-style: normal;
+    }
+    /*IMAGENES*/
+    .footer_bg {
+        position: absolute;
+        bottom: 0;
+        background-image: url(../img/fondo-footer.png) ;
+        background-repeat: no-repeat;
+        background-size: auto;
+        width: 100%;
+        height: 207px;
+        margin-bottom: -40%;
+        
+    }
+    
+     .footer_bg .footer_bg_one {
+        background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEia0PYPxwT5ifToyP3SNZeQWfJEWrUENYA5IXM6sN5vLwAKvaJS1pQVu8mOFFUa_ET4JuHNTFAxKURFerJYHDUWXLXl1vDofYXuij45JZelYOjEFoCOn7E6Vxu0fwV7ACPzArcno1rYuVxGB7JY6G7__e4_KZW4lTYIaHSLVaVLzklZBLZnQw047oq5-Q/s16000/volks.gif") no-repeat center center;
+        width: 330px;
+        height: 105px;
+      background-size:100%;
+        position: absolute;
+        bottom: 0;
+        left: 30%;
+        -webkit-animation: myfirst 22s linear infinite;
+        animation: myfirst 22s linear infinite;
+    }
+    
+    .footer_bg .footer_bg_two {
+        background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
+        width: 88px;
+        height: 100px;
+      background-size:100%;
+        bottom: 0;
+        left: 38%;
+        position: absolute;
+        -webkit-animation: myfirst 30s linear infinite;
+        animation: myfirst 30s linear infinite;
+    }
+    
+@-moz-keyframes myfirst {
+    0% {
+      left: -25%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  @-webkit-keyframes myfirst {
+    0% {
+      left: -25%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  @keyframes myfirst {
+    0% {
+      left: -25%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  /* Estilos para dispositivos con un ancho máximo de 768px (ajusta según tus necesidades) */
+@media only screen and (max-width: 768px) {
+    .raw{
+       width: 300px;
+    }
+    .cop{
+        font-size: 13px;
+        font-weight: 200;
+        color: #000000;
+        font-family: 'Sriracha', cursive;
+        font-style: normal;
+    }
+    .footer_bg {
+        display: none;
+    }
+}
+/*************footer End*****************/
+
+
+  

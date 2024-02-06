@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOP 10</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/b/b6/Escudo_de_Bolivia.svg" type="image/x-icon">
+    <title>Registro de Tramites</title>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
@@ -42,7 +42,7 @@
                 <span class="tooltip"></span>
             </li>
             <li class="lis">
-                <a class="as" href="/registro_tramites">
+                <a class="as" href="#">
                     <i class='bx bx-folder-open is' ></i>
                     <span class="link_names">Registro de tramites</span>
                 </a>
@@ -61,7 +61,7 @@
                     <i class='bx bx-user-check is' ></i>
                     <span class="link_names">Generador de Tramites TOP 10</span>
                 </a>
-                <span class="tooltip">Seguimiento Academico</span>
+                <span class="tooltip">Generador </span>
             </li>
             <li class="lis">
                 <a class="as" href="#">
@@ -84,90 +84,124 @@
         <div class="text">Sistema de Tramites Consulares</div><br>
 
         <!----------campo de datos----------->
-        <h1 class="text-center titulo-principal">GENERADOR DE TOP 10</h1>
+        <h1 class="text-center titulo-principal">REGISTRO DE TRAMITES REALIZADOS</h1>
 <div class="container table-responsive">
-    <div class="alert alert-success text-justify mx-auto mt-3 mb-0 small">
-        <h7>Selecciona el <b>PAIS y OFICINA CONSULAR</b> para agregar el <b>Titulo al TOP 10</b></h7>
+    <div class="alert alert-success text-center mx-auto mt-3 mb-0 small">
+        <h7>Selecciona el <b>PAIS y OFICINA CONSULAR</b> para agregar <b>Registros</b></h7>
     </div>
         <img src="{{ url_for('static', filename='img/ministerio.png') }}" width="310px" height="80px">
         
-<form class="row g-4 mt-1 mb-3" action="/procesar" method="post" enctype="multipart/form-data">
+<form class="row g-4 mt-1 mb-3" action="/registro-crear" method="post" enctype="multipart/form-data">
   <div class="col-md-3">
     <label for="inputState" class="form-label"><b>PAIS</b></label>
     <select id="inputState" class="form-select" name="txtPais" onchange="actualizarDepartamentos()" required>
-      <option selected>TODOS</option>
-      <option value="ALEMANIA">ALEMANIA</option>
-      <option value="ARGENTINA">ARGENTINA</option>
-      <option value="AUSTRALIA">AUSTRALIA</option>
-      <option value="AUSTRIA">AUSTRIA</option>
-      <option value="BELGICA">BELGICA</option>
-      <option value="BRASIL">BRASIL</option>
-      <option value="CANADA">CANADA</option>
-      <option value="CHILE">CHILE</option>
-      <option value="CHINA">CHINA</option>
-      <option value="COLOMBIA">COLOMBIA</option>
-      <option value="COSTA RICA">COSTA RICA</option>
-      <option value="CUBA">CUBA</option>
-      <option value="ECUADOR">ECUADOR</option>
-      <option value="EGIPTO">EGIPTO</option>
-      <option value="ESPAÑA">ESPAÑA</option>
-      <option value="ESTADOS UNIDOS">ESTADOS UNIDOS</option>
-      <option value="FRANCIA">FRANCIA</option>
-      <option value="INDIA">INDIA</option>
-      <option value="IRAN">IRAN</option>
-      <option value="ITALIA">ITALIA</option>
-      <option value="JAPON">JAPON</option>
-      <option value="LIBANO">LIBANO</option>
-      <option value="MEXICO">MEXICO</option>
-      <option value="PAISES BAJOS">PAISES BAJOS</option>
-      <option value="PANAMA">PANAMA</option>
-      <option value="PARAGUAY">PARAGUAY</option>
-      <option value="PERU">PERU</option>
-      <option value="PUERTO RICO">PUERTO RICO</option>
-      <option value="REINO UNIDO DE GRAN BRETAÑA E IRLANDA DEL NORTE">REINO UNIDO DE GRAN BRETAÑA E IRLANDA DEL NORTE</option>
-      <option value="REPUBLICA DE COREA">REPUBLICA DE COREA</option>
-      <option value="REPUBLICA DOMINICANA">REPUBLICA DOMINICANA</option>
-      <option value="RUSIA">RUSIA</option>
-      <option value="SUECIA">SUECIA</option>
-      <option value="SUIZA">SUIZA</option>
-      <option value="TURKIYE">TURKIYE</option>
-      <option value="URUGUAY">URUGUAY</option>
-      <option value="VENEZUELA">VENEZUELA</option>
-   
+        <option  selected value="TODOS">TODOS</option>
+        <option value="ALEMANIA">ALEMANIA</option>
+        <option value="ARGENTINA">ARGENTINA</option>
+        <option value="AUSTRALIA">AUSTRALIA</option>
+        <option value="AUSTRIA">AUSTRIA</option>
+        <option value="BELGICA">BELGICA</option>
+        <option value="BRASIL">BRASIL</option>
+        <option value="CANADA">CANADA</option>
+        <option value="CHILE">CHILE</option>
+        <option value="CHINA">CHINA</option>
+        <option value="COLOMBIA">COLOMBIA</option>
+        <option value="COSTA RICA">COSTA RICA</option>
+        <option value="CUBA">CUBA</option>
+        <option value="ECUADOR">ECUADOR</option>
+        <option value="EGIPTO">EGIPTO</option>
+        <option value="ESPAÑA">ESPAÑA</option>
+        <option value="ESTADOS UNIDOS">ESTADOS UNIDOS</option>
+        <option value="FRANCIA">FRANCIA</option>
+        <option value="INDIA">INDIA</option>
+        <option value="IRAN">IRAN</option>
+        <option value="ITALIA">ITALIA</option>
+        <option value="JAPON">JAPON</option>
+        <option value="LIBANO">LIBANO</option>
+        <option value="MEXICO">MEXICO</option>
+        <option value="PAISES BAJOS">PAISES BAJOS</option>
+        <option value="PANAMA">PANAMA</option>
+        <option value="PARAGUAY">PARAGUAY</option>
+        <option value="PERU">PERU</option>
+        <option value="PUERTO RICO">PUERTO RICO</option>
+        <option value="REINO UNIDO DE GRAN BRETAÑA E IRLANDA DEL NORTE">REINO UNIDO DE GRAN BRETAÑA E IRLANDA DEL NORTE</option>
+        <option value="REPUBLICA DE COREA">REPUBLICA DE COREA</option>
+        <option value="REPUBLICA DOMINICANA">REPUBLICA DOMINICANA</option>
+        <option value="RUSIA">RUSIA</option>
+        <option value="SUECIA">SUECIA</option>
+        <option value="SUIZA">SUIZA</option>
+        <option value="TURKIYE">TURKIYE</option>
+        <option value="URUGUAY">URUGUAY</option>
+        <option value="VENEZUELA">VENEZUELA</option>
       <!-- Agrega más opciones según tus semestres -->
     </select><br>
-    <div class="alert alert-warning" role="alert">
-        <p class="text-center">Copia tu tabla a esta <b>Plantilla</b> Para no Tener Errores.</p>
-        <a class="btn btn-success btn-sm" href="https://www.mediafire.com/file/j9i35xy0fo6tvrd/Plantilla_Top_10+.xlsx/file"style="font-size: smaller;">
-            <i class="fas fa-download"></i> Descargar Plantilla    
-        </a>
-      </div>
   </div>
   
-  <div class="col-md-9">
+  <div class="col-md-7">
     <label for="inputState" class="form-label"><b>Oficina Consular</b></label>
-    <select id="departamentos" class="form-select" name="titulo"required> 
+    <select id="departamentos" class="form-select" name="txtOficina"required> 
     <option selected>TODOS</option>
     </select> <br>
     <!--------------------------ARCHIVO A SUBIR--> 
-    <div class="text-center wrapper" id="file-container">
-        <div class="forma">
-            <input class="file-input" type="file" name="archivo" accept=".xlsx" id="file-input" required>
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p id="selected-file">Selecciona o arrastra un archivo</p>
-        </div>
+</div>
+<div class="col-md-2">
+    <label for="inputState" class="form-label"><b>Gestion</b></label>
+    <select id="departamentos" class="form-select" name="txtGestiones"required> 
+    <option selected value="8">2024</option>
+    <option value="7">2023</option>
+    <option value="6">2022</option>
+    <option value="5">2021</option>
+    <option value="4">2020</option>
+    <option value="3">2019</option>
+    <option value="2">2018</option>
+    <option value="1">2017</option>
+    </select> <br>
+    <!--------------------------ARCHIVO A SUBIR--> 
+</div>
+<div class="wrappera" id="file-container">
+    <b>DETALLE</b>
+    <div class="forma">
+        <input class="file-input" type="file" name="txtDetalle" accept=".xlsx" id="file-input" required>
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p id="selected-file">Selecciona oarrastra un archivo</p>
+    </div>
+</div>
+
+<div class="wrappera"id="file-container2">
+    <b>TOP 10</b>
+    <div class="forma">
+        <input class="file-input" type="file" name="txtTop_10" accept=".xlsx" id="file-input2">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p id="selected-file2">Selecciona o arrastra un archivo</p>
+    </div>
+</div>
+
+<div class="wrappera"id="file-container3">
+    <b>GESTIONES</b>
+    <div class="forma">
+        <input class="file-input" type="file" name="txtGestion" accept=".xlsx" id="file-input3">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p id="selected-file3">Selecciona o arrastra un archivo</p>
+    </div>
+</div>
+<div class="wrappera"id="file-container4">
+    <b>REPORTE GENERAL</b>
+    <div class="forma">
+        <input class="file-input" type="file" name="txtGeneral" accept=".xlsx" id="file-input4">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p id="selected-file4">Selecciona o arrastra un archivo</p>
     </div>
 </div>
 <!-------------FILE--------->
 
 <div class="col-12 text-center mt-1">
     <button type="submit" class="button">
-        <span class="button-content">Generar</span>
+        <span class="button-content">Registrar</span>
       </button> 
   </div>
  
     <div class="isquiera">
-  <a type="submit" class="buttone type1 isquiera"href="javascript:void(0);" onclick="location.reload();">
+  <a type="submit" class="buttone type1 isquiera"href="/registro_tramites">
 </a>
 </div>
 <style>
@@ -178,18 +212,44 @@
 </div>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!------------------FILE FIN-->
-    
-</form><br>
+
+</form>
+ 
 <!--------------BUSQUEDA REALIZADA----------------->
 <!-------------------------------------->
+{% if mensaje2 %}
+  <script>
+    Swal.fire({
+      title: '{{ mensaje2 }}',
+      icon: 'success',
+    });
+  </script>
+{% endif %}
 
+{% if mensaje_error %}
+  <script>
+    Swal.fire({
+      title: '{{ mensaje_error }}',
+      icon: 'error',
+    });
+  </script>
+{% endif %}
+
+{% if mensaje_duplicado %}
+<script>
+    Swal.fire({
+        title: 'Error de Registro',
+        text: "{{mensaje_duplicado}}",
+        icon: 'error',
+      });
+</script>
+{%endif%}
 <!-------DESCARGA DE ARCHIVOS----------------------------------------->
 <!-- ... (Tu código existente) ... -->
 <!---FINAL DE CONTENIDO------>
 </div>
 <br><br>
-  </div> 
-      
+        </div> 
 <script>
     let btn = document.querySelector('#btne');
     let sidebar = document.querySelector('.sidebare');
@@ -235,10 +295,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js
         departamentosSelect.innerHTML = "";
 
         switch (paisSeleccionado) {
-            case "TODOS":
-                // Agregar opciones para Alemania
-                agregarOpcion(departamentosSelect, "TODOS", "TODOS");  // Agregar más opciones según tus necesidades para Alemania
-                break;
             case "ALEMANIA":
                 // Agregar opciones para Alemania
                 agregarOpcion(departamentosSelect, "TODOS", "TODOS");
@@ -542,7 +598,52 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js
 <script src="{{ url_for('static', filename='js/subir.js') }}"></script>
 <!-------------------------------------------->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-{% include 'footer.html' %}
+<footer>
+    <div class="footer-container">
+        <div class="footer-content-container">
+            <div class="website-logo text-center">
+                <img class="min" src="{{ url_for('static', filename='img/min.png') }}" width="430px" height="110px"> <br>
+           </div>
+        </div>
+        <div class="footer-menus">
+            <div class="footer-content-container">
+                <span class="menu-title">Contactos</span>
+                <a href="#" class="menu-item-footer">
+                    <i class="fab fa-whatsapp ic"></i>
+                   000-000-00
+                </a>
+                <a href="#" class="menu-item-footer">
+                    <i class="fab fa-whatsapp ic"></i>
+                   000-000-00
+                </a>
+                <a href="#" class="menu-item-footer">
+                    <i class="far fa-envelope ic"></i>        
+                    000-000-00
+                </a>
+            </div>
+            <div class="footer-content-container">
+                <span class="menu-title mid">D G A C</span>
+                <a href="#" class="menu-item-footer">Sistema de Repositorio <br> de Reportes Realizados</a>
+                <a href="#" class="menu-item-footer">MRE-DGAC-SRRR</a>
+            </div>
+        </div>
+        
+        <div class="footer-content-container">
+            <span class="menu-title">Dev</span>
+            <a href="#" class="menu-item-footer">Gabriel OMC</a>
+            <a href="#" class="menu-item-footer">
+                <i class="fab fa-whatsapp ic"></i>
+               78819752
+            </a>
+            <a href="#" class="menu-item-footer">
+                <i class="far fa-envelope ic"></i>        
+                gs59679@gmail.com
+            </a>
+        </div>
+    </div>
+    <div class="copyright-container">
+        <span class="copyright">Copyright 2024, MRE-DGAC - Todos los Derechos Reservados</span>
+    </div>
+</footer>
 </body>
 </html>
